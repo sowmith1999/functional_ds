@@ -24,6 +24,10 @@ int main()
     duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
     std::cout << "Time taken by test_standard_self: "
               << duration.count() / 1000000.0 << " seconds" << std::endl;
+    // LinkedList llist1;
+    // // llist1.push_front(10);
+    // LinkedList llist2 = llist1;
+    // std::cout << llist2.get_value() << std::endl;
 }
 
 void test_standard_self()

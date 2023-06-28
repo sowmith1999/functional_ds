@@ -6,7 +6,7 @@ public:
     int val;
     Node* next;
     Node(int val);
-    ~Node();
+    // ~Node();
 
 };
 
@@ -18,7 +18,9 @@ private:
 public:
     LinkedList();
     ~LinkedList();
-    Node* get_head();
+    LinkedList(const LinkedList& other);
+    LinkedList &operator=(const LinkedList& other);
+    Node* get_head() const;
     void reset_head();
     int get_value();
     Node* get_next();

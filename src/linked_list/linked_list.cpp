@@ -6,10 +6,6 @@ Node::Node(int val)
     this->val = val;
     this->next = nullptr;
 }
-// Node::~Node()
-// {
-//     // delete this->next;
-// }
 
 // constructor
 LinkedList::LinkedList()
@@ -83,7 +79,6 @@ int LinkedList::get_value()
 
 void LinkedList::push_front(int val)
 {
-    // takes the value and pushes it at the front of this.
     Node *new_node = new Node(val);
     new_node->next = head;
     this->head = new_node;

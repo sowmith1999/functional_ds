@@ -1,16 +1,20 @@
 #ifndef BINARY_TREE_H
 #define BINARY_TREE_H
+#include <iostream>
+// #include <string.h>
 
 class Node
 {
 public:
     int data;
+    Node *parent;
     Node *right_child;
     Node *left_child;
 
     Node(int val)
     {
         this->data = val;
+        this->parent = nullptr;
         this->right_child = nullptr;
         this->left_child = nullptr;
     }
@@ -18,12 +22,10 @@ public:
 
 class BinaryTree
 {
-private:
+public:
     Node *head;
     int count;
     int height;
-
-public:
     BinaryTree()
     {
         this->head = nullptr;
@@ -46,12 +48,14 @@ public:
         int temp_height = 1;
         while (true)
         {
-            if ((val > cur_node->data) || (val == cur_node->data))
+            ++temp_height;
+            if ((val >= cur_node->data))
             {
                 if (cur_node->right_child == nullptr)
                 {
                     cur_node->right_child = new_node;
-                    return;
+                    new_node->parent = cur_node;
+                    break;
                 }
                 cur_node = cur_node->right_child;
             }
@@ -60,20 +64,35 @@ public:
                 if (cur_node->left_child == nullptr)
                 {
                     cur_node->left_child = new_node;
-                    return;
+                    new_node->parent = cur_node;
+                    break;
                 }
                 cur_node = cur_node->left_child;
             }
-            temp_height++;
         }
-        if(temp_height > this->height){
+        if (temp_height > this->height)
+        {
             this->height = temp_height;
         }
+        // std::cout << "temp height is : " << temp_height << std::endl;
+        return;
     }
 
-    Node* find(int val){
-        
+    // In Order traversal -> left-root-right
+    // and print the element
+    void InOrderTraversal(Node *root)
+    {
+        if (root->left_child != nullptr)
+        {
+            InOrderTraversal(root->left_child);
+        }
+        std::cout << root->data << " ";
+        if (root->right_child != nullptr)
+        {
+            InOrderTraversal(root->right_child);
+        }
+        return;
     }
-}
+};
 
 #endif // BINARY_TREE_H

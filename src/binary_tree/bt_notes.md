@@ -14,3 +14,8 @@
 - Searching an element
 - Traversing the tree
 
+
+## Iterator
+- We need a new class for the iterator
+- we will get a pointer that we add ++ and -- operators that basically move the iterator pointer forward and backward in the data structure.
+- we will have the begin and end function, which will return the pointer to the first value and one past the last value respectively.

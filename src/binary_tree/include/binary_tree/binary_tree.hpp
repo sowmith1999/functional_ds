@@ -1,17 +1,17 @@
 #ifndef BINARY_TREE_H
 #define BINARY_TREE_H
 #include <iostream>
-// #include <string.h>
 
+template <typename T>
 class Node
 {
 public:
-    int data;
-    Node *parent;
-    Node *right_child;
-    Node *left_child;
+    T data;
+    Node<T> *parent;
+    Node<T> *right_child;
+    Node<T> *left_child;
 
-    Node(int val)
+    Node<T>(T val)
     {
         this->data = val;
         this->parent = nullptr;
@@ -20,10 +20,37 @@ public:
     }
 };
 
+template <typename BinaryTree>
+class BinaryTreeIterator
+{
+public:
+    using ValueType = typename BinaryTree::ValueType;
+    using PointerType = ValueType *;
+    using ReferenceType = ValueType &;
+
+public:
+    BinaryTreeIterator(PointerType ptr)
+        : m_ptr(ptr) {}
+
+    BinaryTreeIterator &operator++()
+    {
+
+    }
+
+private:
+    PointerType m_ptr;
+    PointerType
+};
+
+template <typename T>
 class BinaryTree
 {
 public:
-    Node *head;
+    using ValueType = T;
+    using Iterator = BinaryTreeIterator<BinaryTree<T>>;
+
+public:
+    Node<T> *head;
     int count;
     int height;
     BinaryTree()
@@ -33,9 +60,9 @@ public:
         this->height = 0;
     }
 
-    void insert(int val)
+    void insert(T val)
     {
-        Node *new_node = new Node(val);
+        Node<T> *new_node = new Node<T>(val);
         this->count = this->count + 1;
         if (this->head == nullptr)
         {
@@ -43,8 +70,8 @@ public:
             this->height = 1;
             return;
         }
-        Node *cur_node = this->head;
-        Node *temp_node = nullptr;
+        Node<T> *cur_node = this->head;
+        Node<T> *temp_node = nullptr;
         int temp_height = 1;
         while (true)
         {
@@ -80,7 +107,7 @@ public:
 
     // In Order traversal -> left-root-right
     // and print the element
-    void InOrderTraversal(Node *root)
+    void InOrderTraversal(Node<T> *root)
     {
         if (root->left_child != nullptr)
         {
@@ -92,6 +119,19 @@ public:
             InOrderTraversal(root->right_child);
         }
         return;
+    }
+
+    Iterator begin()
+    {
+        return Iterator(this->head);
+    }
+
+    // the idea, I think is that when begin becomes end we stop
+    // it could the address after the last element or null ptr if incrementing returns
+    // nullptr when we are done with the last element, that should work as well.
+    Iterator end()
+    {
+        return Iterator(nullptr);
     }
 };
 
